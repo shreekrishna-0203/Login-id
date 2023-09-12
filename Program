@@ -1,0 +1,37 @@
+# Import necessary modules
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+# Initialize the WebDriver (in this case, Chrome)
+driver = webdriver.Chrome()
+
+# Define the URL of the LinkedIn login page
+url = 'https://www.linkedin.com/login/'
+
+# Navigate to the login page
+driver.get(url)
+
+# Find the username and password input fields and the login button
+username_input = driver.find_element(By.ID, 'username')
+password_input = driver.find_element(By.ID, 'password')
+login_button = driver.find_element(By.XPATH, '//button[@type="submit"]')
+
+# Enter the login credentials
+username_input.send_keys('XYZABCxyzzbc@gmail.com')  # Replace with your actual LinkedIn email or username
+password_input.send_keys('!@#$1234')  # Replace with your actual LinkedIn password
+
+# Click the login button
+login_button.click()
+
+# Wait for the login to complete (you can adjust the timeout as needed)
+try:
+    WebDriverWait(driver, 10).until(EC.url_contains('https://www.linkedin.com/feed/'))  # Replace with the expected URL after login
+    print('Login successful!')
+except Exception as e:
+    print('Login failed:', e)
+
+# Close the browser window
+driver.quit()
